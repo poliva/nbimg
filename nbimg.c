@@ -590,7 +590,7 @@ int main(int argc, char** argv)
 			case 960000:
 				//SVGA (800x600)
 				if (biWidth == 0) biWidth = 600;
-				if (biHeight == 0) biHeight = 800
+				if (biHeight == 0) biHeight = 800;
 				break;
 			case 1228800:
 			case 1228832:
@@ -604,12 +604,14 @@ int main(int argc, char** argv)
 				if (biWidth == 0) biWidth = 576;
 				if (biHeight == 0) biHeight = 1024;
 				break;
+/*
 			case 1228832:
 			case 1228800:
 				//WSVGA (1024x600)
 				if (biWidth == 0) biWidth = 600;
 				if (biHeight == 0) biHeight = 1024;
 				break;
+*/
 		//Extended Graphics Array
 			case 1572864:
 			case 1572896:
