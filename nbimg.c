@@ -544,6 +544,11 @@ int main(int argc, char** argv)
 				if (biWidth == 0) biWidth = 480;
 				if (biHeight == 0) biHeight = 640;
 				break;
+			case 1843200:
+			case 1843232:
+				if (biWidth == 0) biWidth = 720;
+				if (biHeight == 0) biHeight = 1280;
+				break;
 			default:
 				if (biWidth == 0 || biHeight == 0) {
 					fprintf(stderr, "[!!] Could not determine Width and Height.\n");
