@@ -534,20 +534,259 @@ int main(int argc, char** argv)
 
 		switch (dataLen) {
 
+		// Video Graphics Array
+			case 38400:
+			case 38432:
+				//QQVGA (160x120)
+				if (biWidth == 0) biWidth = 120;
+				if (biHeight == 0) biHeight = 160;
+				break;
+			case 76800:
+			case 76832:
+				//HQVGA (240x160)
+				if (biWidth == 0) biWidth = 160;
+				if (biHeight == 0) biHeight = 240;
+				break;
 			case 262144: 
 			case 153600: 
+			case 153632:
+				//QVGA (320x240)
 				if (biWidth == 0) biWidth = 240;
 				if (biHeight == 0) biHeight = 320;
 				break;
+			case 192000:
+			case 192032:
+				//WQVGA (400x240)
+				if (biWidth == 0) biWidth = 240;
+				if (biHeight == 0) biHeight = 400;
+				break;
+			case 307200:
+			case 307232:
+				//HVGA (480x320)
+				if (biWidth == 0) biWidth = 320;
+				if (biHeight == 0) biHeight = 480;
+				break;
 			case 655360:
 			case 614912:
+			case 614400:
+			case 614432:
+				//VGA (640x480)
 				if (biWidth == 0) biWidth = 480;
 				if (biHeight == 0) biHeight = 640;
 				break;
+			case 768000:
+			case 768032:
+				//WVGA (800x480)
+				if (biWidth == 0) biWidth = 480;
+				if (biHeight == 0) biHeight = 800;
+				break;
+			case 819840:
+			case 819872:
+				//FWVGA (854x480)
+				if (biWidth == 0) biWidth = 480;
+				if (biHeight == 0) biHeight = 854;
+				break;
+			case 960032:
+			case 960000:
+				//SVGA (800x600)
+				if (biWidth == 0) biWidth = 600;
+				if (biHeight == 0) biHeight = 800
+				break;
+			case 1228800:
+			case 1228832:
+				//DVGA (960x640)
+				if (biWidth == 0) biWidth = 640;
+				if (biHeight == 0) biHeight = 960;
+				break;
+			case 1179648:
+			case 1179680:
+				//WSVGA (1024x576)
+				if (biWidth == 0) biWidth = 576;
+				if (biHeight == 0) biHeight = 1024;
+				break;
+			case 1228832:
+			case 1228800:
+				//WSVGA (1024x600)
+				if (biWidth == 0) biWidth = 600;
+				if (biHeight == 0) biHeight = 1024;
+				break;
+		//Extended Graphics Array
+			case 1572864:
+			case 1572896:
+				//XGA (1024x768)
+				if (biWidth == 0) biWidth = 768;
+				if (biHeight == 0) biHeight = 1024;
+				break;
+			case 1966080:
+			case 1966112:
+				//WXGA (1280x768)
+				if (biWidth == 0) biWidth = 768;
+				if (biHeight == 0) biHeight = 1280;
+				break;
+			case 1990656:
+			case 1990688:
+				//XGA+ (1152x864)
+				if (biWidth == 0) biWidth = 864;
+				if (biHeight == 0) biHeight = 1152;
+				break;
+			case 2592000:
+			case 2592032:
+				//WXGA+ (1440x900)
+				if (biWidth == 0) biWidth = 900;
+				if (biHeight == 0) biHeight = 1440;
+				break;
+			case 2621440:
+			case 2621472:
+				//SXGA (1280x1024)
+				if (biWidth == 0) biWidth = 1024;
+				if (biHeight == 0) biHeight = 1280;
+				break;
+			case 2940000:
+			case 2940032:
+				//SXGA+ (1400x1050)
+				if (biWidth == 0) biWidth = 1050;
+				if (biHeight == 0) biHeight = 1400;
+				break;
+			case 3528000:
+			case 3528032:
+				//WSXGA+ (1680x1050)
+				if (biWidth == 0) biWidth = 1680;
+				if (biHeight == 0) biHeight = 1050;
+				break;
+			case 3840000:
+			case 3840032:
+				//UXGA (1600x1200)
+				if (biWidth == 0) biWidth = 1200;
+				if (biHeight == 0) biHeight = 1600;
+				break;
+			case 4608000:
+			case 4608032:
+				//WUXGA (1920x1200)
+				if (biWidth == 0) biWidth = 1200;
+				if (biHeight == 0) biHeight = 1920;
+				break;
+		//Quad XGA
+			case 4718592:
+			case 4718624:
+				//QWXGA (2048x1152)
+				if (biWidth == 0) biWidth = 1152;
+				if (biHeight == 0) biHeight = 2048;
+				break;
+			case 6291456:
+			case 6291488:
+				//QXGA (2048x1536)
+				if (biWidth == 0) biWidth = 1536;
+				if (biHeight == 0) biHeight = 2048;
+				break;
+			case 8192000:
+			case 8192032:
+				//WQXGA (2560x1600)
+				if (biWidth == 0) biWidth = 1600;
+				if (biHeight == 0) biHeight = 2560;
+				break;
+			case 10485760:
+			case 10485792:
+				//QSXGA (2560x2048)
+				if (biWidth == 0) biWidth = 2048;
+				if (biHeight == 0) biHeight = 2560;
+				break;
+			case 13107200:
+			case 13107232:
+				//WQSXGA (3200x2048)
+				if (biWidth == 0) biWidth = 2048;
+				if (biHeight == 0) biHeight = 3200;
+				break;
+			case 15360000:
+			case 15360032:
+				//QUXGA (3200x2400)
+				if (biWidth == 0) biWidth = 2400;
+				if (biHeight == 0) biHeight = 3200;
+				break;
+			case 18432000:
+			case 18432032:
+				//WQUXGA (3840x2400)
+				if (biWidth == 0) biWidth = 2400;
+				if (biHeight == 0) biHeight = 3840;
+				break;
+		//Hyper XGA
+			case 25165824:
+			case 25165856:
+				//HXGA (4096x3072)
+				if (biWidth == 0) biWidth = 3072;
+				if (biHeight == 0) biHeight = 4096;
+				break;
+			case 32768000:
+			case 32768032:
+				//WHXGA (5120x3200)
+				if (biWidth == 0) biWidth = 3200;
+				if (biHeight == 0) biHeight = 5120;
+				break;
+			case 41943040:
+			case 41943072:
+				//HSXGA (5120x4096)
+				if (biWidth == 0) biWidth = 4096;
+				if (biHeight == 0) biHeight = 5120;
+				break;
+			case 52428800:
+			case 52428832:
+				//WHSXGA (6400x4096)
+				if (biWidth == 0) biWidth = 4096;
+				if (biHeight == 0) biHeight = 6400;
+				break;
+			case 61440000:
+			case 61440032:
+				//HUXGA (6400x4800)
+				if (biWidth == 0) biWidth = 4800;
+				if (biHeight == 0) biHeight = 6400;
+				break;
+			case 73728000:
+			case 73728032:
+				//WHUXGA (7680x4800)
+				if (biWidth == 0) biWidth = 4800;
+				if (biHeight == 0) biHeight = 7680;
+				break;
+		//High-Definition
+			case 460800:
+			case 460832:
+				//nHD (640x360)
+				if (biWidth == 0) biWidth = 360;
+				if (biHeight == 0) biHeight = 640;
+				break;
+			case 1036800:
+			case 1036832:
+				//qHD (960x540)
+				if (biWidth == 0) biWidth = 540;
+				if (biHeight == 0) biHeight = 960;
+				break;
 			case 1843200:
 			case 1843232:
+				//HD (1280x720)
 				if (biWidth == 0) biWidth = 720;
 				if (biHeight == 0) biHeight = 1280;
+				break;
+			case 4147200:
+			case 4147232:
+				//FHD (1920x1080)
+				if (biWidth == 0) biWidth = 1080;
+				if (biHeight == 0) biHeight = 1920;
+				break;
+			case 7372800:
+			case 7372832:
+				//WQHD (2560x1440)
+				if (biWidth == 0) biWidth = 1440;
+				if (biHeight == 0) biHeight = 2560;
+				break;
+			case 16588800:
+			case 16588832:
+				//QFHD (3840x2160)
+				if (biWidth == 0) biWidth = 2160;
+				if (biHeight == 0) biHeight = 3840;
+				break;
+			case 66355200:
+			case 66355232:
+				//UHD (7680x4320)
+				if (biWidth == 0) biWidth = 4320;
+				if (biHeight == 0) biHeight = 7680;
 				break;
 			default:
 				if (biWidth == 0 || biHeight == 0) {
