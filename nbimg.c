@@ -427,7 +427,7 @@ int main(int argc, char** argv)
 	while ((c = getopt(argc, argv, "F:w:h:nsp:t:D:S:T:")) != -1) {
 		switch(c) {
 		case 'F':
-			sprintf(filename, optarg);
+			sprintf(filename, "%s", optarg);
 			break;
 		case 'w':
 			biWidth = atoi(optarg);
@@ -450,7 +450,7 @@ int main(int argc, char** argv)
 			pattern_set=1;
 			break;
 		case 'D':
-			sprintf(modelid, optarg);
+			sprintf(modelid, "%s", optarg);
 			gen_nbh=1;
 			break;
 		case 'S':
@@ -458,7 +458,7 @@ int main(int argc, char** argv)
 			gen_nbh=1;
 			break;
 		case 'T':
-			sprintf(type, optarg);
+			sprintf(type, "%s", optarg);
 			gen_nbh=1;
 			break;
 		default:
