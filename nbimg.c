@@ -141,9 +141,11 @@ int convertBMP2NB(FILE *input, char *filename, unsigned long dataLen, int addhtc
 		}
 	}
 
-	printf ("[] Adding %d bytes padding using pattern [0x%x]\n", padsize, pattern);
-	for (i = 0; i < padsize; i++) {
-		fwrite(&pattern, 1, 1, output);
+	if (padsize != 0) {
+		printf ("[] Adding %d bytes padding using pattern [0x%x]\n", padsize, pattern);
+		for (i = 0; i < padsize; i++) {
+			fwrite(&pattern, 1, 1, output);
+		}
 	}
 
 	if (smartphone == 0 && addhtcsig == 1) {
@@ -374,15 +376,15 @@ void help_show_message()
         fprintf(stderr, "Usage: nbimg -F file.[nb|bmp]\n\n");
         fprintf(stderr, "Mandatory arguments:\n");
         fprintf(stderr, "   -F <filename>    Filename to convert.\n");
-        fprintf(stderr, "                    If the extension is BMP it will be converted to NB.\n");
-        fprintf(stderr, "                    If the extension is NB it will be converted to BMP.\n\n");
+        fprintf(stderr, "                    If the extension is BMP it will be converted to NB/IMG.\n");
+        fprintf(stderr, "                    If the extension is NB/IMG it will be converted to BMP.\n\n");
         fprintf(stderr, "Optional arguments:\n");
         fprintf(stderr, "   -w <width>       Image width in pixels. If not specified will be autodetected.\n");
         fprintf(stderr, "   -h <height>      Image height in pixels. If not specified will be autodetected.\n");
         fprintf(stderr, "   -t <pattern>     Manually specify the padding pattern (usually 0 or 255).\n");
         fprintf(stderr, "   -p <size>        Manually specify the padding size.\n");
         fprintf(stderr, "   -n               Do not add HTC splash signature to NB file.\n");
-        fprintf(stderr, "   -s               Output smartphone format.\n\n");
+        fprintf(stderr, "   -s               Output smartphone format (for old WinCE devices).\n\n");
         fprintf(stderr, "NBH arguments:      (only when converting from BMP to NBH)\n");
 	fprintf(stderr, "   -D <model_id>    Generate NBH with specified Model ID (mandatory)\n");
 	fprintf(stderr, "   -S <chunksize>   NBH SignMaxChunkSize (64 or 1024)\n");
@@ -404,15 +406,16 @@ int main(int argc, char** argv)
 	int pattern_set=0;
 	int padsize_set=0;
 	int c;
+	int ret;
 
 	char type[32];
 	int gen_nbh=0;
 	int SignMaxChunkSize=64;
 	char modelid[32];
 
-	printf ("=== nbimg v1.1\n");
-	printf ("=== Convert NB <--> BMP splash screens\n");
-	printf ("=== (c)2008 Pau Oliva - pof @ xda-developers\n\n");
+	printf ("=== nbimg v1.2\n");
+	printf ("=== Convert IMG/NB <--> BMP splash screens\n");
+	printf ("=== (c)2007-2012 Pau Oliva - pof @ xda-developers\n\n");
 
 	if (argc < 2) {
 		help_show_message();
@@ -529,7 +532,7 @@ int main(int argc, char** argv)
 
 	}
 
-	else if ( (!strcasecmp(extension, ".nb")) || (!strcasecmp(extension, ".img")) ) {
+	else if ( (!strcasecmp(extension, ".nb")) || (!strcasecmp(extension, ".img")) || (!strcasecmp(extension, ".rgb565")) ) {
 
 		switch (dataLen) {
 
@@ -802,7 +805,12 @@ int main(int argc, char** argv)
 
 		dataLen = biWidth * biHeight * 2;
 
-		convertNB2BMP(input, filename, biWidth, biHeight, dataLen);
+		ret = convertNB2BMP(input, filename, biWidth, biHeight, dataLen);
+		if (ret != 0) {
+			fprintf(stderr, "[!!] image conversion failed, swiching w/h and retrying:\n");
+			convertNB2BMP(input, filename, biHeight, biWidth, dataLen);
+		}
+			
 	}
 
 	else {
