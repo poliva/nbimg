@@ -93,10 +93,10 @@ static unsigned char htcsig[32] = {
 	0x00, 0x00
 };
 
-int convertBMP2NB(FILE *input, char *filename, unsigned long dataLen, int addhtcsig, int smartphone, int padsize, int pattern)
+int convertBMP2NB(FILE *input, char *filename, unsigned long dataLen, int addhtcsig, int smartphone, unsigned int padsize, int pattern)
 {
 	FILE *output;
-	int y,x,i;
+	unsigned int y,x,i;
 	char filename2[1024];
 	unsigned int biWidth;
 	unsigned int biHeight;
@@ -277,7 +277,6 @@ int convertNB2NBH(char *filename, int SignMaxChunkSize, char *modelid, char *typ
 	nb = fopen(nbfile, "rb");
 	if (nb == NULL) {
 		fprintf(stderr, "[!!] Could not open '%s'\n", nbfile);
-		fclose(dbh);
 		exit(1);
 	}
 
@@ -400,7 +399,7 @@ int main(int argc, char** argv)
 	int biHeight=0, biWidth=0;
 	int addhtcsig=1;
 	int smartphone=0;
-	int padsize=0;
+	unsigned int padsize=0;
 	int pattern=0xff;
 	int pattern_set=0;
 	int padsize_set=0;
@@ -530,7 +529,7 @@ int main(int argc, char** argv)
 
 	}
 
-	else if (!strcasecmp(extension, ".nb")) {
+	else if ( (!strcasecmp(extension, ".nb")) || (!strcasecmp(extension, ".img")) ) {
 
 		switch (dataLen) {
 
@@ -592,12 +591,6 @@ int main(int argc, char** argv)
 				if (biWidth == 0) biWidth = 600;
 				if (biHeight == 0) biHeight = 800;
 				break;
-			case 1228800:
-			case 1228832:
-				//DVGA (960x640)
-				if (biWidth == 0) biWidth = 640;
-				if (biHeight == 0) biHeight = 960;
-				break;
 			case 1179648:
 			case 1179680:
 				//WSVGA (1024x576)
@@ -605,6 +598,12 @@ int main(int argc, char** argv)
 				if (biHeight == 0) biHeight = 1024;
 				break;
 /*
+			case 1228800:
+			case 1228832:
+				//DVGA (960x640)
+				if (biWidth == 0) biWidth = 640;
+				if (biHeight == 0) biHeight = 960;
+				break;
 			case 1228832:
 			case 1228800:
 				//WSVGA (1024x600)
@@ -807,7 +806,7 @@ int main(int argc, char** argv)
 	}
 
 	else {
-		fprintf(stderr, "[!!] File extension (%s) must be BMP or NB\n", extension);
+		fprintf(stderr, "[!!] File extension (%s) must be BMP or NB/IMG\n", extension);
 		return 1;
 	}
 
