@@ -93,16 +93,16 @@ static unsigned char htcsig[32] = {
 	0x00, 0x00
 };
 
-int convertBMP2NB(FILE *input, char *filename, unsigned long dataLen, int addhtcsig, int smartphone, unsigned int padsize, int pattern)
+int convertBMP2NB(FILE *input, char *filename, long long dataLen, int addhtcsig, int smartphone, unsigned int padsize, int pattern)
 {
 	FILE *output;
 	unsigned int y,x,i;
-	char filename2[1024];
+	static char filename2[1024];
 	unsigned int biWidth;
 	unsigned int biHeight;
 	unsigned short encoded;
-	unsigned char *pixdata;
-	unsigned char data[dataLen];
+	char *pixdata;
+	char *data = malloc( dataLen * sizeof(char));
 
 	sprintf(filename2, "%s.nb", filename);
 	printf("[] Encoding: %s\n", filename2);
@@ -154,19 +154,20 @@ int convertBMP2NB(FILE *input, char *filename, unsigned long dataLen, int addhtc
 	}
 
 	fclose(output);
+	free(data);
 	return 0;
 }
 
 /* convertBMP - converts a NB splash screen to a bitmap */
-int convertNB2BMP(FILE *input, char *filename, int biWidth, int biHeight, unsigned long dataLen)
+int convertNB2BMP(FILE *input, char *filename, int biWidth, int biHeight, long long dataLen)
 {
 	FILE *output;
 	int y,x;
-	char filename2[1024];
+	static char filename2[1024];
 	unsigned char colors[3];
 	unsigned short encoded;
 	unsigned long biSize;
-	unsigned char data[dataLen];
+	char *data = malloc( dataLen * sizeof(char));
 
 	sprintf(filename2, "%s.bmp", filename);
 	printf("[] Encoding: %s\n", filename2);
@@ -217,6 +218,7 @@ int convertNB2BMP(FILE *input, char *filename, int biWidth, int biHeight, unsign
 	}
 
 	fclose(output);
+	free(data);
 	return 0;
 }
 
@@ -397,7 +399,7 @@ int main(int argc, char** argv)
 
 	FILE *input;
 	char* extension;
-	unsigned long dataLen;
+	long long dataLen;
 	int biHeight=0, biWidth=0;
 	int addhtcsig=1;
 	int smartphone=0;
