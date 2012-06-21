@@ -1,7 +1,7 @@
 /* 
  * nbimg
  *
- * Copyright (C) 2007-2008 Pau Oliva Fora - <pof@eslack.org>
+ * Copyright (C) 2007-2012 Pau Oliva Fora - <pof@eslack.org>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -375,7 +375,7 @@ int convertNB2NBH(char *filename, int SignMaxChunkSize, char *modelid, char *typ
 
 void help_show_message()
 {
-        fprintf(stderr, "Usage: nbimg -F file.[nb|bmp]\n\n");
+        fprintf(stderr, "Usage: nbimg -F file.[nb|bmp|img]\n\n");
         fprintf(stderr, "Mandatory arguments:\n");
         fprintf(stderr, "   -F <filename>    Filename to convert.\n");
         fprintf(stderr, "                    If the extension is BMP it will be converted to NB/IMG.\n");
@@ -415,7 +415,7 @@ int main(int argc, char** argv)
 	int SignMaxChunkSize=64;
 	char modelid[32];
 
-	printf ("=== nbimg v1.2\n");
+	printf ("=== nbimg v1.2.1\n");
 	printf ("=== Convert IMG/NB <--> BMP splash screens\n");
 	printf ("=== (c)2007-2012 Pau Oliva - pof @ xda-developers\n\n");
 
@@ -803,7 +803,7 @@ int main(int argc, char** argv)
 				}
 				break;
 		}
-		printf("[] Image dimensions: %dx%d\n", biWidth, biHeight);
+		printf("[] Autodetected image dimensions: %dx%d\n", biWidth, biHeight);
 
 		dataLen = biWidth * biHeight * 2;
 
