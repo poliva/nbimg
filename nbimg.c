@@ -132,9 +132,9 @@ int convertBMP2NB(FILE *input, char *filename, long long dataLen, int addhtcsig,
 		pixdata = data + 54 + ((biHeight-(y+1))*biWidth*3);
 		for (x=0; x < biWidth; x++) {
 
-			encoded =   pixdata[0]  >> 3 ; //B
-			encoded |= (int)(pixdata[1]>>2) << 5 ; //G
-			encoded |= (int)(pixdata[2]>>3) << 11 ; //R
+			encoded =  ((unsigned int)(pixdata[0]>>3) & 0x1F)       ; //B
+			encoded |= ((unsigned int)(pixdata[1]>>2) & 0x3F) << 5  ; //G
+			encoded |= ((unsigned int)(pixdata[2]>>3) & 0x1F) << 11 ; //R
 			
 			pixdata+= 3;
 			fwrite(&encoded, 1, 2, output);
